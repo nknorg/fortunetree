@@ -1,7 +1,7 @@
 <template>
   <nav class="navbar navbar-expand-lg navbar-expand-md navbar-expand-sm navbar-expand-xs fixed-top navbar-light bg-light navbar-elevation">
 
-    <router-link class="navbar-brand navbar-logo-font" :to="{path: '/'}"><img class="navbar-logo" src="./../../assets/logo.png" alt="">Fortune Tree</router-link>
+    <router-link class="navbar-brand" :to="{path: '/'}"><img class="navbar-logo" src="./../../assets/logo.png" alt=""></router-link>
 
     <div class="collapse navbar-collapse" id="navbarColor03">
       <ul class="navbar-nav mr-auto">
@@ -105,14 +105,9 @@
 
 <style>
   .navbar-logo {
-    width: 40px;
+    height: 53px;
     margin-right: 5px;
     padding-bottom: 3px;
-  }
-  .navbar-logo-font{
-    padding-top: 6px;
-    font-size: 27px;
-    color: #5cc6c3 !important;
   }
 
   .navbar-elevation {

@@ -115,6 +115,11 @@ export default {
         return response
       })
     },
+    getLikeAndHateList_inBC({dispatch}, txid){
+      return axios.get(process.env.BC_URL + 'likeinfo/' + txid).then(response => {
+        return response.data.Result
+      })
+    },
     replyArticle_inBC({dispatch}, replyData) {
       let txRawData = Transaction.replyArticle(this.state.AuthUser.name, replyData.txid, replyData.commentContent, this.state.BlockChain.AccountInfo)
       return dispatch('axiosPost_inBC', txRawData).then(response => {

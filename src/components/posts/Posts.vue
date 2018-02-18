@@ -38,8 +38,28 @@
             <span class="post-article-star">
               <a @click="userLike">
                 <i class="fa" :class="[blog.myStar?'fa-thumbs-up':'fa-thumbs-o-up']" aria-hidden="true"></i>
-                {{blog.starCount}}
               </a>
+              <li class="dropdown likes-dropdown">
+                <a class="likes-detail dropdown-toggle" @click="userLikeAndHate" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span>
+                  {{blog.starCount}}
+                </a>
+                <ul class="dropdown-menu dropdown-menu-likes">
+                  <li v-for="liker in likes" v-if="liker.LikeType === 0"><a>{{liker.Liker}}</a></li>
+                </ul>
+              </li>
+            </span>
+            <span class="post-article-hate">
+              <a @click="userHate">
+                <i class="fa" :class="[blog.myHate?'fa-thumbs-down':'fa-thumbs-o-down']" aria-hidden="true"></i>
+              </a>
+              <li class="dropdown likes-dropdown">
+                <a class="likes-detail dropdown-toggle" @click="userLikeAndHate" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="caret"></span>
+                  {{blog.hateCount}}
+                </a>
+                <ul class="dropdown-menu dropdown-menu-likes">
+                  <li v-for="liker in likes" v-if="liker.LikeType === 1"><a>{{liker.Liker}}</a></li>
+                </ul>
+              </li>
             </span>
             <span class="post-article-comment">
               <router-link to="">
@@ -86,7 +106,8 @@
     data() {
       return {
         demoAvatar: require('../../assets/img/avatar.png'),
-        blogObj: {myStar: false, starCount: 0}
+        blogObj: {myStar: false, starCount: 0},
+        likes: [{Liker: '', LikeType: 0}]
       }
     },
     methods: {
@@ -94,9 +115,20 @@
         this.$store.dispatch('oneBlog', this.$route.params.id)
         this.$store.dispatch('getComment', this.$route.params.id)
       },
-      userLike() {
+      isLogin() {
         if (this.user.authenticated) {
-          if (typeof(this.blog.myStar) === 'undefined' || this.blog.myStar !== true) {
+          if (this.$store.state.BlockChain.AccountInfo.address === '') {
+            $("#inputPwdModal").modal("show")
+          } else {
+            return true
+          }
+        } else {
+          this.$router.push({name: 'Login'})
+        }
+      },
+      userLike() {
+        if (typeof(this.blog.myStar) === 'undefined' || this.blog.myStar !== true) {
+          if (this.isLogin() === true) {
             this.blogObj = this.blog
             this.blogObj.myStar = true
             this.blogObj.starCount++
@@ -105,10 +137,44 @@
             let formData = {
               articleId: this.$route.params.id
             }
-            this.$store.dispatch('userLike', formData)
+            this.$store.dispatch('userLike', formData).then(response => {
+              if (response && this.blog.txid !== null) {
+                let likeData = {
+                  txid: this.blog.txid
+                }
+                this.$store.dispatch('likeArticle_inBC', likeData)
+              }
+            })
           }
-        } else {
-          this.$router.push({name: 'Login'})
+        }
+      },
+      userHate() {
+        if (typeof(this.blog.myHate) === 'undefined' || this.blog.myHate !== true) {
+          if (this.isLogin() === true) {
+            this.articleObj = this.blog
+            this.articleObj.myHate = true
+            this.articleObj.hateCount++
+            this.$set(this.blog, 0, this.articleObj);
+
+            let formData = {
+              articleId: this.$route.params.id
+            }
+            this.$store.dispatch('userHate', formData).then(response => {
+              if (response && this.blog.txid !== null) {
+                let hateData = {
+                  txid: this.blog.txid
+                }
+                this.$store.dispatch('hateArticle_inBC', hateData)
+              }
+            })
+          }
+        }
+      },
+      userLikeAndHate() {
+        if(this.likes[0].Liker === ''){
+          this.$store.dispatch('getLikeAndHateList_inBC', this.blog.txid).then(response => {
+            this.likes = response;
+          })
         }
       },
       showCommentArea() {
@@ -214,16 +280,31 @@
     text-decoration: none;
     color: #333;
   }
-  .post-article-star {
-    border-right: 1px solid #eee;
+  .post-article-star,
+  .post-article-hate,
+  .post-article-comment {
     border-left: 1px solid #eee;
     padding: 0 16px;
   }
-  .post-article-star > a {
+  .post-article-star > a,
+  .post-article-hate > a,
+  .likes-dropdown {
     cursor: pointer;
   }
-  .post-article-comment {
-    margin-left: 16px;
+  .likes-dropdown {
+    list-style-type: none;
+    display: inline;
+  }
+  .likes-detail {
+    margin-left: 5px;
+  }
+  .dropdown-menu-likes {
+    border-radius: 3px;
+    padding: 6px 8px;
+    background-color: #fcfcfc;
+    border: 1px solid #788187;
+    transition: all 0.3s ease 0s, visibility 0s linear 0.3s;
+    box-shadow: 1px 1px 5px 0 rgba(50, 50, 50, 0.75);
   }
   .post-article-footer-time {
     margin-right: 16px;

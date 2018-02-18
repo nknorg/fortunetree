@@ -2,7 +2,7 @@
   <div class="container">
     <form @submit.prevent="submitRegister">
       <fieldset>
-        <legend class="register-title">Welcome to FTree</legend>
+        <legend class="register-title">Welcome to Fortune Tree</legend>
         <div class="form-group">
           <div class="input-group">
             <div class="input-group-addon"><i class="fa fa-user-o" aria-hidden="true"></i></div>
