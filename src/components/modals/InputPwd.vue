@@ -14,18 +14,26 @@
           <div class="modal-body">
             <div class="form-group">
               <div class="input-group">
-                <div class="input-group-addon"><i class="fa fa-user-o" aria-hidden="true"></i></div>
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-user-o" aria-hidden="true"></i></span>
+                </div>
                 <input v-model="user.name" type="text" disabled class="form-control" placeholder="Nickname">
               </div>
             </div>
             <div class="form-group">
               <div class="input-group">
-                <div class="input-group-addon"><i class="fa fa-key" aria-hidden="true"></i></div>
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-key" aria-hidden="true"></i></span>
+                </div>
                 <input :type="[isShowPassword ? 'text' : 'password']"
                        v-model="password"
                        v-validate data-vv-rules="required|min:6" data-vv-as="password"
                        class="form-control" name="password" placeholder="Enter password">
-                <div class="input-group-addon" @click="viewPassword"><i class="fa" :class="[isShowPassword ? 'fa-eye' : 'fa-eye-slash']" aria-hidden="true"></i></div>
+                <div class="input-group-append" @click="viewPassword">
+                  <span class="input-group-text">
+                    <i class="fa" :class="[isShowPassword ? 'fa-eye' : 'fa-eye-slash']" aria-hidden="true"></i>
+                  </span>
+                </div>
               </div>
               <small class="form-text text-muted err-message" v-show="errors.has('password')">{{ errors.first('password') }}</small>
               <small class="form-text text-muted err-message" v-show="showPwdErrMsg">{{ pwdErrMsg }}</small>

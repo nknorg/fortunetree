@@ -26,7 +26,7 @@
 
           <div>
             <span class="tag_list" v-for="tagItem in JSON.parse(blog.tag)">
-              <router-link class="btn" :to="{name: 'Articles', params: {name:tagItem}}">{{tagItem}}</router-link>
+              <router-link v-if="tagItem!==''" class="btn" :to="{name: 'Articles', params: {name:tagItem}}">{{tagItem}}</router-link>
             </span>
           </div>
 

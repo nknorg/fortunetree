@@ -5,15 +5,21 @@
 
     <div class="container">
       <div class="input-group user-chain-address">
-        <div class="input-group-addon"><i class="fa fa-home" aria-hidden="true"></i></div>
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fa fa-home" aria-hidden="true"></i></span>
+        </div>
         <input v-model="accountInfo.address" type="text" class="form-control" disabled placeholder="Your address">
       </div>
       <div class="input-group user-chain-other">
-        <div class="input-group-addon"><i class="fa fa-btc" aria-hidden="true"></i></div>
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fa fa-btc" aria-hidden="true"></i></span>
+        </div>
         <input v-model="userInfo.TotalToken" type="text" class="form-control" disabled placeholder="Total Token" title="Balance can be withdrawn">
       </div>
       <div class="input-group user-chain-other">
-        <div class="input-group-addon"><i class="fa fa-cny" aria-hidden="true"></i></div>
+        <div class="input-group-prepend">
+          <span class="input-group-text"><i class="fa fa-cny" aria-hidden="true"></i></span>
+        </div>
         <input v-model="userInfo.WithdrawnToken" type="text" class="form-control" disabled placeholder="Withdrawn Token" title="The balance has been withdrawn">
       </div>
 
@@ -21,7 +27,9 @@
       <form @submit.prevent="withdrawal">
         <div class="form-group">
           <div class="input-group withdrawal-input-address">
-            <div class="input-group-addon"><i class="fa fa-paper-plane" aria-hidden="true"></i></div>
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fa fa-paper-plane" aria-hidden="true"></i></span>
+            </div>
             <input v-model="toAddress"
                    v-validate data-vv-rules="required" data-vv-as="to address"
                    :class="{'input': true, 'is-danger': errors.has('to-address') }"
@@ -32,7 +40,9 @@
 
         <div class="form-group">
           <div class="input-group withdrawal-input-num">
-            <div class="input-group-addon"><i class="fa fa-btc" aria-hidden="true"></i></div>
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fa fa-btc" aria-hidden="true"></i></span>
+            </div>
             <input v-model="amount"
                    v-validate data-vv-rules="required|decimal:8" data-vv-as="amount"
                    :class="{'input': true, 'is-danger': errors.has('amount') }"
