@@ -1,52 +1,56 @@
 <template>
-  <div class="container">
-    <form @submit.prevent="submitRegister">
-      <fieldset>
-        <legend class="register-title">Welcome to Fortune Tree</legend>
-        <div class="form-group">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="fa fa-user-o" aria-hidden="true"></i></span>
+  <div class="container-fluid container-register">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 col-md-9 col-sm-10 col-xs-12">
+        <form @submit.prevent="submitRegister">
+          <fieldset>
+            <legend class="register-title">Welcome to Fortune Tree</legend>
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-user-o" aria-hidden="true"></i></span>
+                </div>
+                <input v-model="username"
+                       v-validate data-vv-rules="required|min:4" data-vv-as="nickname"
+                       :class="{'input': true, 'is-danger': errors.has('name') }"
+                       type="text" class="form-control" name="name" placeholder="Enter nickname">
+              </div>
+              <small class="form-text text-muted err-message" v-show="errors.has('name')">{{ errors.first('name') }}</small>
             </div>
-            <input v-model="username"
-                   v-validate data-vv-rules="required|min:4" data-vv-as="nickname"
-                   :class="{'input': true, 'is-danger': errors.has('name') }"
-                   type="text" class="form-control" name="name" placeholder="Enter nickname">
-          </div>
-          <small class="form-text text-muted err-message" v-show="errors.has('name')">{{ errors.first('name') }}</small>
-        </div>
-        <div class="form-group">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
+                </div>
+                <input v-model="email"
+                       v-validate data-vv-rules="required|email" data-vv-as="email"
+                       :class="{'input': true, 'is-danger': errors.has('email') }"
+                       type="email" class="form-control" name="email" placeholder="Enter email">
+              </div>
+              <small class="form-text text-muted err-message" v-show="errors.has('email')">{{ errors.first('email') }}</small>
             </div>
-            <input v-model="email"
-                   v-validate data-vv-rules="required|email" data-vv-as="email"
-                   :class="{'input': true, 'is-danger': errors.has('email') }"
-                   type="email" class="form-control" name="email" placeholder="Enter email">
-          </div>
-          <small class="form-text text-muted err-message" v-show="errors.has('email')">{{ errors.first('email') }}</small>
-        </div>
-        <div class="form-group">
-          <div class="input-group">
-            <div class="input-group-prepend">
-              <span class="input-group-text"><i class="fa fa-key" aria-hidden="true"></i></span>
+            <div class="form-group">
+              <div class="input-group">
+                <div class="input-group-prepend">
+                  <span class="input-group-text"><i class="fa fa-key" aria-hidden="true"></i></span>
+                </div>
+                <input :type="[isShowPassword ? 'text' : 'password']"
+                       v-model="password"
+                       v-validate data-vv-rules="required|min:6" data-vv-as="password"
+                       class="form-control" name="password" placeholder="Enter password">
+                <div class="input-group-append" @click="viewPassword">
+                  <span class="input-group-text">
+                    <i class="fa" :class="[isShowPassword ? 'fa-eye' : 'fa-eye-slash']" aria-hidden="true"></i>
+                  </span>
+                </div>
+              </div>
+              <small class="form-text text-muted err-message" v-show="errors.has('password')">{{ errors.first('password') }}</small>
             </div>
-            <input :type="[isShowPassword ? 'text' : 'password']"
-                   v-model="password"
-                   v-validate data-vv-rules="required|min:6" data-vv-as="password"
-                   class="form-control" name="password" placeholder="Enter password">
-            <div class="input-group-append" @click="viewPassword">
-              <span class="input-group-text">
-                <i class="fa" :class="[isShowPassword ? 'fa-eye' : 'fa-eye-slash']" aria-hidden="true"></i>
-              </span>
-            </div>
-          </div>
-          <small class="form-text text-muted err-message" v-show="errors.has('password')">{{ errors.first('password') }}</small>
-        </div>
-      </fieldset>
-      <button class="btn btn-outline-success btn-submit">Submit</button>
-    </form>
+          </fieldset>
+          <button class="btn btn-outline-success btn-submit">Submit</button>
+        </form>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -83,7 +87,7 @@
                       if (response) {
                         this.$store.dispatch('userRegister_inBC', formData).then(response => {
                           if (response === true) {
-                            this.$router.push({name: 'Login', params: {username: this.email}})
+                            this.$router.push({name: 'Login', params: {username: this.username}})
                           } else {
                             this.$store.dispatch('showNotification', {
                               level: 'danger',
@@ -105,11 +109,12 @@
 </script>
 
 <style scoped>
+  .container-register {
+    margin-top: 10%;
+  }
+
   .register-title {
     margin: 30px 0;
-  }
-  .input-group-addon {
-    width: 50px;
   }
 
   .btn-submit {

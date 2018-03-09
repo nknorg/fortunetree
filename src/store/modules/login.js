@@ -8,7 +8,11 @@ export default {
       return axios.post(process.env.API_URL + 'login', formData).then(response => {
         dispatch('loginSuccess', response.data)
       }).catch(error => {
-        dispatch('showNotification', {level: 'danger', msg: 'User name or password is incorrect.'})
+        if (error.response.status === 421) {
+          dispatch('showNotification', {level: 'danger', msg: 'Verification email has been sent to your email.'})
+        } else {
+          dispatch('showNotification', {level: 'danger', msg: 'User name or password is incorrect.'})
+        }
         return false
       })
     },
