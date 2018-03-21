@@ -1,6 +1,6 @@
 <template>
   <div class="sidebar-module">
-    <div class="sidebar-tit"><strong>Tags</strong></div>
+    <div class="sidebar-tit"><strong>{{ $t('tag.name') }}</strong></div>
     <div class="sidebar-item" v-for="tag in tags">
       <router-link :to="{name: 'Articles', params: {name:tag.name}}">{{tag.name}}</router-link>
     </div>

@@ -1,6 +1,6 @@
 <template>
   <article id="articles">
-    <div class="articles-header"><strong>Articles</strong></div>
+    <div class="articles-header"><strong>{{ $t('articles.name') }}</strong></div>
 
     <div class="article-container" v-for="(article,index) in articleList">
       <div class="article-header">

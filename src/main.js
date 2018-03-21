@@ -7,13 +7,14 @@ import store from './store/index'
 import jwtToken from './helpers/jwt'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import VueI18n from 'vue-i18n'
+import LangStorage from './helpers/lang'
 
 require('swiper/dist/css/swiper.css')
 import VueAwesomeSwiper from 'vue-awesome-swiper'
 
 import zh_CN from 'vee-validate/dist/locale/zh_CN';
 import VeeValidate, { Validator } from 'vee-validate';
-
 
 
 /**
@@ -40,9 +41,22 @@ Vue.use(VeeValidate, {
   // locale: 'zh_CN'
 });
 
-
 Vue.use(VueAxios, axios)
 Vue.use(VueAwesomeSwiper)
+Vue.use(VueI18n)
+
+
+/**
+ * i18n
+ * @type {VueI18n}
+ */
+const i18n = new VueI18n({
+  locale: LangStorage.getLang('en'),  // 语言标识
+  messages: {
+    'zh': require('./common/lang/zh'),
+    'en': require('./common/lang/en')
+  }
+})
 
 
 Vue.config.productionTip = false
@@ -50,6 +64,7 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
+  i18n,
   store,
   template: '<App/>',
   components: {App},

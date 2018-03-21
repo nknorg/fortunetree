@@ -9,13 +9,13 @@
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fa fa-user-o" aria-hidden="true"></i></span>
         </div>
-        <input v-model="user.name" type="text" class="form-control" disabled name="name" placeholder="Enter nickname">
+        <input v-model="user.name" type="text" class="form-control" disabled name="name" :placeholder="$t('settings.nicknamePlaceholder')">
       </div>
       <div class="input-group">
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fa fa-envelope-o" aria-hidden="true"></i></span>
         </div>
-        <input v-model="user.email" type="email" class="form-control" disabled name="email" placeholder="Enter email">
+        <input v-model="user.email" type="email" class="form-control" disabled name="email" :placeholder="$t('settings.emailPlaceholder')">
       </div>
 
     </div>

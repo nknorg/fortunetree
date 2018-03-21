@@ -6,10 +6,10 @@
     <div class="collapse navbar-collapse" id="navbarColor03">
       <ul class="navbar-nav mr-auto">
         <li class="nav-item" :class="[(this.$route.params.name==='new') ? 'active' : '']">
-          <router-link class="nav-link" :to="{name: 'Articles', params: {name:'new'}}">New</router-link>
+          <router-link class="nav-link" :to="{name: 'Articles', params: {name:'new'}}">{{ $t('navbar.new') }}</router-link>
         </li>
         <li class="nav-item" :class="[(this.$route.params.name==='hot') ? 'active' : '']">
-          <router-link class="nav-link" :to="{name: 'Articles', params: {name:'hot'}}">Hot</router-link>
+          <router-link class="nav-link" :to="{name: 'Articles', params: {name:'hot'}}">{{ $t('navbar.hot') }}</router-link>
         </li>
 
         <!--<li class="nav-item">-->
@@ -18,16 +18,20 @@
       </ul>
 
       <ul class="navbar-nav">
+        <li class="nav-item" v-if="!user.authenticated">
+          <a class="nav-link change-locale" @click.prevent="changeLocale">{{ $t('language.name') }}</a>
+        </li>
+
         <li class="nav-item" v-if="!user.authenticated"
             :class="[(this.$route.name==='Register') ? 'active' : '']">
-          <router-link class="nav-link" :to="{name: 'Register'}">Sign up</router-link>
+          <router-link class="nav-link" :to="{name: 'Register'}">{{ $t('navbar.signUp') }}</router-link>
         </li>
         <li class="nav-item" v-if="!user.authenticated"
             :class="[(this.$route.name==='Login') ? 'active' : '']">
-          <router-link class="nav-link" :to="{name: 'Login'}">Login</router-link>
+          <router-link class="nav-link" :to="{name: 'Login'}">{{ $t('navbar.login') }}</router-link>
         </li>
         <li class="post-li" v-if="user.authenticated">
-          <router-link class="btn btn-success post-btn" :to="{name: 'Post'}">Post</router-link>
+          <router-link class="btn btn-success post-btn" :to="{name: 'Post'}">{{ $t('navbar.post') }}</router-link>
         </li>
 
         <li class="nav-item dropdown show" v-if="user.authenticated">
@@ -39,24 +43,28 @@
             <div class="dropdown-divider"></div>
             <a @click.prevent="toMyBlog" class="dropdown-item" href="#">
               <i class="fa fa-home" aria-hidden="true"></i>
-              &nbsp;&nbsp;Articles
+              &nbsp;&nbsp;{{ $t('navbar.articles') }}
             </a>
             <a @click.prevent="toMyComments" class="dropdown-item" href="#">
               <i class="fa fa-comment" aria-hidden="true"></i>
-              &nbsp;&nbsp;Comments
+              &nbsp;&nbsp;{{ $t('navbar.comments') }}
             </a>
             <a @click.prevent="toMySettings" class="dropdown-item" href="#">
               <i class="fa fa-cogs" aria-hidden="true"></i>
-              &nbsp;&nbsp;Settings
+              &nbsp;&nbsp;{{ $t('navbar.settings') }}
+            </a>
+            <a @click.prevent="changeLocale" class="dropdown-item" href="#">
+              <i class="fa fa-language" aria-hidden="true"></i>
+              &nbsp;&nbsp;{{ $t('language.name') }}
             </a>
             <a @click.prevent="toMyWallet" class="dropdown-item" href="#">
               <i class="fa fa-bank" aria-hidden="true"></i>
-              &nbsp;&nbsp;Wallet
+              &nbsp;&nbsp;{{ $t('navbar.wallet') }}
             </a>
             <div class="dropdown-divider"></div>
             <a @click.prevent="logout" class="dropdown-item" href="#">
               <i class="fa fa-sign-out" aria-hidden="true"></i>
-              &nbsp;&nbsp;Logout
+              &nbsp;&nbsp;{{ $t('navbar.logout') }}
             </a>
           </div>
         </li>
@@ -67,6 +75,7 @@
 
 <script>
   import {mapState} from 'vuex'
+  import LangStorage from './../../helpers/lang'
 
   export default {
     name: 'TopNav',
@@ -82,6 +91,12 @@
       })
     },
     methods: {
+      changeLocale() {
+        let locale = this.$i18n.locale
+        locale === 'zh' ? this.$i18n.locale = 'en' : this.$i18n.locale = 'zh'
+        LangStorage.setLang(this.$i18n.locale)
+        this.$validator.localize(this.$i18n.locale)
+      },
       toMyBlog() {
         this.$router.push({name: 'Blog'})
       },
@@ -122,6 +137,10 @@
     margin-left: 40px;
     border-radius: 0;
     border: 0;
+  }
+
+  .change-locale:hover {
+    cursor: pointer;
   }
 
   .post-btn {

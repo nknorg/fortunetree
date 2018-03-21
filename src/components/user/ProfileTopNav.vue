@@ -4,22 +4,22 @@
       <li class="nav-item">
         <a @click.prevent="toMyBlog"
            :class="[(this.$route.name==='Blog') ? 'active' : '']"
-           class="nav-link" data-toggle="tab" href="#">Articles</a>
+           class="nav-link" data-toggle="tab" href="#">{{ $t('profile.articles') }}</a>
       </li>
       <li class="nav-item">
         <a @click.prevent="toMyComments"
            :class="[(this.$route.name==='Comments') ? 'active' : '']"
-           class="nav-link" data-toggle="tab" href="#">Comments</a>
+           class="nav-link" data-toggle="tab" href="#">{{ $t('navbar.comments') }}</a>
       </li>
       <li class="nav-item">
         <a @click.prevent="toMySettings"
            :class="[(this.$route.name==='Settings') ? 'active' : '']"
-           class="nav-link" data-toggle="tab" href="#">Settings</a>
+           class="nav-link" data-toggle="tab" href="#">{{ $t('navbar.settings') }}</a>
       </li>
       <li class="nav-item">
         <a @click.prevent="toMyWallet"
            :class="[(this.$route.name==='Wallet') ? 'active' : '']"
-           class="nav-link" data-toggle="tab" href="#">Wallet</a>
+           class="nav-link" data-toggle="tab" href="#">{{ $t('navbar.wallet') }}</a>
       </li>
     </ul>
   </div>

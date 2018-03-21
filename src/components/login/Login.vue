@@ -4,7 +4,7 @@
       <div class="col-lg-8 col-md-9 col-sm-10 col-xs-12">
         <form @submit.prevent="submitLogin">
           <fieldset>
-            <legend class="register-title">Login</legend>
+            <legend class="register-title">{{ $t('login.name') }}</legend>
 
             <div class="form-group">
               <div class="input-group">
@@ -14,7 +14,7 @@
                 <input v-model="username"
                        v-validate data-vv-rules="required|min:4" data-vv-as="nickname or email"
                        :class="{'input': true, 'is-danger': errors.has('name') }"
-                       type="text" class="form-control" name="name" placeholder="Enter nickname or email">
+                       type="text" class="form-control" name="name" :placeholder="$t('login.nicknamePlaceholder')">
               </div>
               <small class="form-text text-muted err-message" v-show="errors.has('name')">{{ errors.first('name') }}</small>
             </div>
@@ -27,7 +27,7 @@
                 <input :type="[isShowPassword ? 'text' : 'password']"
                        v-model="password"
                        v-validate data-vv-rules="required|min:6" data-vv-as="password"
-                       class="form-control" name="password" placeholder="Enter password">
+                       class="form-control" name="password" :placeholder="$t('login.passwordPlaceholder')">
                 <div class="input-group-append" @click="viewPassword">
                   <span class="input-group-text">
                     <i class="fa" :class="[isShowPassword ? 'fa-eye' : 'fa-eye-slash']" aria-hidden="true"></i>
@@ -37,7 +37,7 @@
               <small class="form-text text-muted err-message" v-show="errors.has('password')">{{ errors.first('password') }}</small>
             </div>
           </fieldset>
-          <button class="btn btn-outline-success btn-submit">Login</button>
+          <button class="btn btn-outline-success btn-submit">{{ $t('login.name') }}</button>
         </form>
       </div>
     </div>

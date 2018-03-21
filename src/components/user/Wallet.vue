@@ -8,19 +8,19 @@
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fa fa-home" aria-hidden="true"></i></span>
         </div>
-        <input v-model="accountInfo.address" type="text" class="form-control" disabled placeholder="Your address">
+        <input v-model="accountInfo.address" type="text" class="form-control" disabled :placeholder="$t('wallet.addressPlaceholder')">
       </div>
       <div class="input-group user-chain-other">
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fa fa-btc" aria-hidden="true"></i></span>
         </div>
-        <input v-model="userInfo.TotalToken" type="text" class="form-control" disabled placeholder="Total Token" title="Balance can be withdrawn">
+        <input v-model="userInfo.TotalToken" type="text" class="form-control" disabled :placeholder="$t('wallet.totalTokenPlaceholder')" :title="$t('wallet.totalTokenTit')">
       </div>
       <div class="input-group user-chain-other">
         <div class="input-group-prepend">
           <span class="input-group-text"><i class="fa fa-cny" aria-hidden="true"></i></span>
         </div>
-        <input v-model="userInfo.WithdrawnToken" type="text" class="form-control" disabled placeholder="Withdrawn Token" title="The balance has been withdrawn">
+        <input v-model="userInfo.WithdrawnToken" type="text" class="form-control" disabled :placeholder="$t('wallet.withdrawnTokenPlaceholder')" :title="$t('wallet.withdrawnTokenTit')">
       </div>
 
 
@@ -33,7 +33,7 @@
             <input v-model="toAddress"
                    v-validate data-vv-rules="required" data-vv-as="to address"
                    :class="{'input': true, 'is-danger': errors.has('to-address') }"
-                   type="text" class="form-control" name="to-address" placeholder="To address">
+                   type="text" class="form-control" name="to-address" :placeholder="$t('wallet.toAddressPlaceholder')">
           </div>
           <small class="form-text text-muted err-message" v-show="errors.has('to-address')">{{ errors.first('to-address') }}</small>
         </div>
@@ -46,12 +46,12 @@
             <input v-model="amount"
                    v-validate data-vv-rules="required|decimal:8" data-vv-as="amount"
                    :class="{'input': true, 'is-danger': errors.has('amount') }"
-                   type="text" class="form-control" name="amount" placeholder="Amount">
+                   type="text" class="form-control" name="amount" :placeholder="$t('wallet.amountPlaceholder')">
           </div>
           <small class="form-text text-muted err-message" v-show="errors.has('amount')">{{ errors.first('amount') }}</small>
         </div>
 
-        <button class="btn btn-outline-success btn-submit">Withdraw</button>
+        <button class="btn btn-outline-success btn-submit">{{ $t('wallet.withdraw') }}</button>
       </form>
     </div>
   </div>

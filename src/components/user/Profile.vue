@@ -7,7 +7,7 @@
         {{userInfo.Reputation}}
       </div>
       <div class="user-profile-join-date">
-        <i class="fa fa-calendar-check-o" aria-hidden="true"></i> Joined&nbsp;&nbsp;
+        <i class="fa fa-calendar-check-o" aria-hidden="true"></i> {{ $t('profile.joined') }}&nbsp;&nbsp;
         {{user.joinDate}}
       </div>
     </div>

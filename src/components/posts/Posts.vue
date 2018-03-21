@@ -68,7 +68,7 @@
               </router-link>
             </span>
             <span class="post-article-reply">
-              <a @click="showCommentArea" class="btn">Reply</a>
+              <a @click="showCommentArea" class="btn">{{ $t('posts.reply') }}</a>
             </span>
           </div>
         </article>

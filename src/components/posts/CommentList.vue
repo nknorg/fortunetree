@@ -35,7 +35,7 @@
               </span>
               <span class="comment-reply">
                 <a @click="">
-                  Reply
+                  {{ $t('commentList.reply') }}
                 </a>
               </span>
             </div>

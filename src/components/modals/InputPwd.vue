@@ -5,7 +5,7 @@
 
         <form @submit.prevent="verifyPwd">
           <div class="modal-header">
-            <h5 class="modal-title">Please enter your login password</h5>
+            <h5 class="modal-title">{{ $t('inputPwd.tit') }}</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -17,7 +17,7 @@
                 <div class="input-group-prepend">
                   <span class="input-group-text"><i class="fa fa-user-o" aria-hidden="true"></i></span>
                 </div>
-                <input v-model="user.name" type="text" disabled class="form-control" placeholder="Nickname">
+                <input v-model="user.name" type="text" disabled class="form-control" :placeholder="$t('inputPwd.nicknamePlaceholder')">
               </div>
             </div>
             <div class="form-group">
@@ -28,7 +28,7 @@
                 <input :type="[isShowPassword ? 'text' : 'password']"
                        v-model="password"
                        v-validate data-vv-rules="required|min:6" data-vv-as="password"
-                       class="form-control" name="password" placeholder="Enter password">
+                       class="form-control" name="password" :placeholder="$t('inputPwd.passwordPlaceholder')">
                 <div class="input-group-append" @click="viewPassword">
                   <span class="input-group-text">
                     <i class="fa" :class="[isShowPassword ? 'fa-eye' : 'fa-eye-slash']" aria-hidden="true"></i>
@@ -43,7 +43,7 @@
           <div class="modal-footer">
             <button class="btn btn-outline-success btn-submit"
                     :class="[waitingStatus ? 'disabled enter-disabled':'']">
-              {{waitingStatus ? 'Waiting...' : 'Enter'}}</button>
+              {{waitingStatus ? $t('inputPwd.waiting') : $t('inputPwd.enter')}}</button>
           </div>
         </form>
 

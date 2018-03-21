@@ -4,7 +4,7 @@
       <div class="col-lg-1"></div>
       <div class="col-lg-10 col-md-12 comment-input-body">
         <div class="row comment-input-area">
-          <textarea v-model="commentInput" rows="3" placeholder="Reply"></textarea>
+          <textarea v-model="commentInput" rows="3" :placeholder="$t('comment.reply')"></textarea>
         </div>
         <div class="row">
           <button v-bind:disabled="disabledVal"

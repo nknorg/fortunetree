@@ -4,7 +4,7 @@
       <div class="col-lg-8 col-md-9 col-sm-10 col-xs-12">
         <form @submit.prevent="submitRegister">
           <fieldset>
-            <legend class="register-title">Welcome to Fortune Tree</legend>
+            <legend class="register-title">{{ $t('register.tit') }}</legend>
             <div class="form-group">
               <div class="input-group">
                 <div class="input-group-prepend">
@@ -13,7 +13,7 @@
                 <input v-model="username"
                        v-validate data-vv-rules="required|min:4" data-vv-as="nickname"
                        :class="{'input': true, 'is-danger': errors.has('name') }"
-                       type="text" class="form-control" name="name" placeholder="Enter nickname">
+                       type="text" class="form-control" name="name" :placeholder="$t('register.nicknamePlaceholder')">
               </div>
               <small class="form-text text-muted err-message" v-show="errors.has('name')">{{ errors.first('name') }}</small>
             </div>
@@ -25,7 +25,7 @@
                 <input v-model="email"
                        v-validate data-vv-rules="required|email" data-vv-as="email"
                        :class="{'input': true, 'is-danger': errors.has('email') }"
-                       type="email" class="form-control" name="email" placeholder="Enter email">
+                       type="email" class="form-control" name="email" :placeholder="$t('register.emailPlaceholder')">
               </div>
               <small class="form-text text-muted err-message" v-show="errors.has('email')">{{ errors.first('email') }}</small>
             </div>
@@ -37,7 +37,7 @@
                 <input :type="[isShowPassword ? 'text' : 'password']"
                        v-model="password"
                        v-validate data-vv-rules="required|min:6" data-vv-as="password"
-                       class="form-control" name="password" placeholder="Enter password">
+                       class="form-control" name="password" :placeholder="$t('register.passwordPlaceholder')">
                 <div class="input-group-append" @click="viewPassword">
                   <span class="input-group-text">
                     <i class="fa" :class="[isShowPassword ? 'fa-eye' : 'fa-eye-slash']" aria-hidden="true"></i>
@@ -47,7 +47,7 @@
               <small class="form-text text-muted err-message" v-show="errors.has('password')">{{ errors.first('password') }}</small>
             </div>
           </fieldset>
-          <button class="btn btn-outline-success btn-submit">Submit</button>
+          <button class="btn btn-outline-success btn-submit">{{ $t('register.submit') }}</button>
         </form>
       </div>
     </div>

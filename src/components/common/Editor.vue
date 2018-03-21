@@ -1,21 +1,21 @@
 <template>
   <form @submit.prevent="submitPost">
-    <input v-model="title" type="text" class="form-control post-title" name="title" placeholder="Title">
+    <input v-model="title" type="text" class="form-control post-title" name="title" :placeholder="$t('editor.tit')">
 
-    <div class="editor-name">Markdown Editor</div>
+    <div class="editor-name">{{ $t('editor.editor') }}</div>
 
     <div class="editor-container">
       <div id="editor">
-        <textarea :value="input" @input="update" placeholder="Markdown Editor"></textarea>
+        <textarea :value="input" @input="update" :placeholder="$t('editor.editor')"></textarea>
         <div v-html="compiledMarkdown"></div>
       </div>
     </div>
 
-    <input v-model="tags" type="text" class="form-control post-tags" name="tags" placeholder="Tag (up to 5 tags), the first tag is your main category.">
+    <input v-model="tags" type="text" class="form-control post-tags" name="tags" :placeholder="$t('editor.tagPlaceholder')">
 
     <button v-bind:disabled="disabledVal"
             :class="[disabledVal ? 'btn-secondary' : 'btn-outline-success', waitingStatus ? 'disabled enter-disabled':'']"
-            class="btn btn-submit-post">{{waitingStatus ? 'Waiting...' : 'Submit'}}</button>
+            class="btn btn-submit-post">{{waitingStatus ? $t('editor.waiting') : $t('editor.submit')}}</button>
   </form>
 </template>
 
